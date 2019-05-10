@@ -4,6 +4,7 @@ const delay = require('delay')
 const AWS = require('aws-sdk')
 const child_process = require('child_process')
 const JSZip = require('jszip')
+const shell = require('shelljs')
 
 const devicefarm = new AWS.DeviceFarm({region: 'us-west-2'})
 
@@ -16,7 +17,6 @@ const testSpeciOSARN = 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96
 const testSpecAndroidARN = 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/a675ca00-a3b2-4012-9b8b-96a2576b897b'
 const tgzPath = path.normalize('./appium-tests-1.0.0.tgz')
 const projectARN = 'arn:aws:devicefarm:us-west-2:541472778266:project:5c14b96e-4f98-4cce-a335-5971b2ec61db'
-const appiumZipPath = path.normalize('./AppiumTests.zip')
 
 const paramsCreateUploadIPA = {
   name: 'JoinDirectBroking.ipa',
@@ -36,7 +36,7 @@ const paramsCreateUploadAppium = {
   projectArn: projectARN
 }
 
-const run = () => {
+const runZipCommands = () => {
 
   return new Promise(((resolve, reject) => {
 
@@ -61,8 +61,6 @@ const run = () => {
       })
   }))
 }
-
-run()
 
 const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, runName) => {
   devicefarm.createUpload(paramsCreateUploadAppium, async (err, data) => {
@@ -105,6 +103,7 @@ const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, 
 }
 
 const run = () => {
+  runZipCommands()
   return new Promise(((resolve, reject) => {
     try {
       if (fs.existsSync(tgzPath) || true) { // fixme
@@ -112,7 +111,7 @@ const run = () => {
         console.log('---- TGZ EXISTS ----')
 
         try {
-          if (fs.existsSync("./AppiumTests.zip")) {
+          if (fs.existsSync('./AppiumTests.zip')) {
 
             console.log('---- ZIP EXISTS ----')
 
@@ -152,24 +151,22 @@ const run = () => {
           } else {
             console.log('---- ZIP DOES NOT EXIST ----')
           }
-        } catch(err) {
+        } catch (err) {
           console.log('---- ZIP ERR ----', err)
           reject(err)
         }
       } else {
         console.log('---- TGZ DOES NOT EXIST ----')
       }
-    } catch(err) {
+    } catch (err) {
       console.log('---- TGZ ERR ----', err)
       reject(err)
     }
   }))
 }
 
-run()
+const main = (params) => {
+  shell.cd(path.normalize(params.appiumTestFolderPath))
+}
 
-
-
-
-
-
+main()

@@ -1,8 +1,8 @@
 {
-  "name": "node-aws-device-farm",
+  "name": "appium-aws-device-farm",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/fnzc/node-aws-device-farm.git",
+  "repository": "https://github.com/fnzc/appium-aws-device-farm.git",
   "author": "Jeremy Farnault <haskkor@gmail.com>",
   "license": "MIT",
   "dependencies": {
