@@ -1,0 +1,16 @@
+{
+  "name": "node-aws-device-farm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/fnzc/node-aws-device-farm.git",
+  "author": "Jeremy Farnault <haskkor@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.452.0",
+    "axios": "^0.18.0",
+    "delay": "^4.2.0",
+    "fs": "^0.0.1-security",
+    "jszip": "^3.2.1",
+    "shelljs": "^0.8.3"
+  }
+}
