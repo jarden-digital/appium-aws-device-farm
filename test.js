@@ -2,7 +2,6 @@ const path = require('path')
 const fs = require('fs')
 const delay = require('delay')
 const AWS = require('aws-sdk')
-const child_process = require('child_process')
 const JSZip = require('jszip')
 const shell = require('shelljs')
 
@@ -78,13 +77,11 @@ const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, 
   })
 }
 
-const runSchedule = () => {
-
-  runZipCommands()
+const runSchedule = (params) => {
 
   return new Promise(((resolve, reject) => {
     try {
-      if (fs.existsSync(tgzPath) || true) { // fixme
+      if (fs.existsSync(tgzPath)) {
 
         console.log('--- TGZ exists ---')
 
@@ -101,12 +98,17 @@ const runSchedule = () => {
                 const uploadIPAARN = data.upload.arn
                 const uploadIPAURL = data.upload.url
 
-                child_process.execSync(`curl -T ${iOSIPAPath} "${uploadIPAURL}"`)
-
                 console.log('--- ipa ARN --- ', uploadIPAARN)
                 console.log('--- ipa URL --- ', uploadIPAURL)
 
-                uploadTestScheduleRun(resolve, uploadIPAARN, iOSDevicePoolARN, testSpeciOSARN, 'iOS Smoke run')
+                shell.exec(`curl -T ${params.iOSIPAPath} "${uploadIPAURL}"`, (code, stdout, stderr) => {
+                  if (stderr) console.log('--- curl iOS ipa failed --- ', stderr)
+                  else {
+                    console.log('--- curl iOS ipa ok --- ', stdout)
+                    uploadTestScheduleRun(resolve, uploadIPAARN, params.iOSDevicePoolARN, params.testSpeciOSARN,
+                      params.runNameIOS)
+                  }
+                })
               }
             })
 
@@ -162,7 +164,7 @@ const packageTests = (params) => {
 
     // Write the zip
     zip.generateNodeStream({type: 'nodebuffer', streamFiles: true})
-      .pipe(fs.createWriteStream(appiumTestZipPath))
+      .pipe(fs.createWriteStream(params.appiumTestZipPath))
       .on('finish', () => {
         resolve('finish')
       })
