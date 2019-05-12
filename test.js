@@ -91,43 +91,52 @@ const runSchedule = (params) => {
             console.log('--- ZIP exists ---')
 
             // Upload the IPA and run iOS
-            devicefarm.createUpload(paramsCreateUploadIPA, (err, data) => {
+            if (params.iOSIPAPath) {
+              devicefarm.createUpload(paramsCreateUploadIPA, (err, data) => {
 
-              if (err) console.log(err, err.stack)
-              else {
-                const uploadIPAARN = data.upload.arn
-                const uploadIPAURL = data.upload.url
+                if (err) console.log(err, err.stack)
+                else {
+                  const uploadIPAARN = data.upload.arn
+                  const uploadIPAURL = data.upload.url
 
-                console.log('--- ipa ARN --- ', uploadIPAARN)
-                console.log('--- ipa URL --- ', uploadIPAURL)
+                  console.log('--- ipa ARN --- ', uploadIPAARN)
+                  console.log('--- ipa URL --- ', uploadIPAURL)
 
-                shell.exec(`curl -T ${params.iOSIPAPath} "${uploadIPAURL}"`, (code, stdout, stderr) => {
-                  if (stderr) console.log('--- curl iOS ipa failed --- ', stderr)
-                  else {
-                    console.log('--- curl iOS ipa ok --- ', stdout)
-                    uploadTestScheduleRun(resolve, uploadIPAARN, params.iOSDevicePoolARN, params.testSpeciOSARN,
-                      params.runNameIOS)
-                  }
-                })
-              }
-            })
+                  shell.exec(`curl -T ${params.iOSIPAPath} "${uploadIPAURL}"`, (code, stdout, stderr) => {
+                    if (stderr) console.log('--- curl iOS ipa failed --- ', stderr)
+                    else {
+                      console.log('--- curl iOS ipa ok --- ', stdout)
+                      uploadTestScheduleRun(resolve, uploadIPAARN, params.iOSDevicePoolARN, params.testSpeciOSARN,
+                                            params.runNameIOS)
+                    }
+                  })
+                }
+              })
+            }
 
             // Upload the APK and run Android
-            devicefarm.createUpload(paramsCreateUploadAPK, (err, data) => {
+            if (params.androidAPKPath) {
+              devicefarm.createUpload(paramsCreateUploadAPK, (err, data) => {
 
-              if (err) console.log(err, err.stack)
-              else {
-                const uploadAPKARN = data.upload.arn
-                const uploadAPKURL = data.upload.url
-
-                child_process.execSync(`curl -T ${androidAPKPath} "${uploadAPKURL}"`)
-
-                console.log('--- apk ARN --- ', uploadAPKARN)
-                console.log('--- apk URL --- ', uploadAPKURL)
-
-                uploadTestScheduleRun(resolve, uploadAPKARN, androidDevicePoolARN, testSpecAndroidARN, 'Android Smoke run')
-              }
-            })
+                if (err) console.log(err, err.stack)
+                else {
+                  const uploadAPKARN = data.upload.arn
+                  const uploadAPKURL = data.upload.url
+                  
+                  console.log('--- apk ARN --- ', uploadAPKARN)
+                  console.log('--- apk URL --- ', uploadAPKURL)
+                  
+                  shell.exec(`curl -T ${params.androidAPKPath} "${uploadAPKURL}"`, (code, stdout, stderr) => {
+                    if (stderr) console.log('--- curl Android apk failed --- ', stderr)
+                    else {
+                      console.log('--- curl Android apk ok --- ', stdout)
+                      uploadTestScheduleRun(resolve, uploadAPKARN, params.androidDevicePoolARN, params.testSpecAndroidARN,
+                                            params.runNameAndroid)
+                    }
+                  })
+                }
+              })
+            }
           } else {
             console.log('--- ZIP does not exist ---')
           }
