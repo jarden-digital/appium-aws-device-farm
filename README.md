@@ -17,9 +17,9 @@ yarn add @fnzc/appium-aws-device-farm
 ## Usage
 
 ```
-var launchAppiumTestsDeviceFarm = require('@fnzc/appium-aws-device-farm');
+var appiumDeviceFarm = require('@fnzc/appium-aws-device-farm');
 
-launchAppiumTestsDeviceFarm({
+appiumDeviceFarm.launchAppiumTestsDeviceFarm({
   androidAPKPath: path.normalize('/somePath/someName.apk'),
   androidDevicePoolARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:devicepool:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   appiumTestFolderPath: path.normalize('/somePath/appium-tests'),

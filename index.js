@@ -221,4 +221,4 @@ const launchAppiumTestsDeviceFarm = (params) => {
   })
 }
 
-exports.default = launchAppiumTestsDeviceFarm
+exports.launchAppiumTestsDeviceFarm = launchAppiumTestsDeviceFarm
