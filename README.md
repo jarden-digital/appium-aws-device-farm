@@ -2,7 +2,7 @@
 
 _Node library to schedule Appium test runs on AWS Device Farm_
 
-[![npm](https://img.shields.io/npm/v/@fnzc/appium-aws-device-farm.svg)]
+![npm](https://img.shields.io/npm/v/@fnzc/appium-aws-device-farm.svg)
 
 ## Installation
 
