@@ -7,17 +7,17 @@ _Node library to schedule Appium test runs on AWS Device Farm_
 ## Installation
 
 ```
-npm install --save appium-aws-device-farm
+npm install --save @fnzc/appium-aws-device-farm
 ```
 or
 ```
-yarn add appium-aws-device-farm
+yarn add @fnzc/appium-aws-device-farm
 ```
 
 ## Usage
 
 ```
-var launchAppiumTestsDeviceFarm = require('appium-aws-device-farm');
+var launchAppiumTestsDeviceFarm = require('@fnzc/appium-aws-device-farm');
 
 launchAppiumTestsDeviceFarm({
   androidAPKPath: path.normalize('/somePath/someName.apk'),
