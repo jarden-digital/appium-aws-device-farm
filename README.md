@@ -26,3 +26,17 @@ projectARN = 'arn:aws:devicefarm:us-west-2:541472778266:project:5c14b96e-4f98-4c
 'JoinDirectBroking.ipa'
 'app-release.apk'
 './AppiumTests.zip'
+
+main({
+  androidAPKPath: path.normalize('/Users/jfarnaul/Projects/appium-aws-device-farm/app-release.apk'),
+  androidDevicePoolARN: 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/230b2130-a477-4776-8aeb-e1ea29fa0fc2',
+  appiumTestFolderPath: path.normalize('/Users/jfarnaul/Projects/onboarding-app/appium-tests'),
+  appiumTestZipPath: path.normalize('/Users/jfarnaul/Desktop/onb/AppiumTests.zip'),
+  iOSDevicePoolARN: 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/b1d9b656-cc6f-4b71-aa67-f24d912291bc',
+  iOSIPAPath: path.normalize('/Users/jfarnaul/Projects/appium-aws-device-farm/JoinDirectBroking.ipa'),
+  projectARN: 'arn:aws:devicefarm:us-west-2:541472778266:project:5c14b96e-4f98-4cce-a335-5971b2ec61db',
+  runNameIOS: 'Appium Run iOS',
+  runNameAndroid: 'Appium Run Android',
+  testSpecAndroidARN: 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/a675ca00-a3b2-4012-9b8b-96a2576b897b',
+  testSpecIOSARN: 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/65b12a88-8735-4e72-8f2b-e83064322071'
+})
