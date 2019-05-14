@@ -1,6 +1,6 @@
 {
   "name": "@fnzc/appium-aws-device-farm",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node library to schedule Appium test runs on AWS Device Farm",
   "main": "index.js",
   "typings": "./index.d.ts",
