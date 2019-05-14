@@ -1,8 +1,12 @@
 {
   "name": "appium-aws-device-farm",
   "version": "1.0.0",
+  "description": "Node library to schedule Appium test runs on AWS Device Farm",
   "main": "index.js",
+  "typings": "./index.d.ts",
   "repository": "https://github.com/fnzc/appium-aws-device-farm.git",
+  "bugs": "https://github.com/fnzc/appium-aws-device-farm/issues",
+  "readme": "https://github.com/fnzc/appium-aws-device-farm/#readme",
   "author": "Jeremy Farnault <haskkor@gmail.com>",
   "license": "MIT",
   "dependencies": {

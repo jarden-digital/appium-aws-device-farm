@@ -1,5 +1,40 @@
 # appium-aws-device-farm
-Node library to schedule Appium test runs on AWS Device Farm
+
+_Node library to schedule Appium test runs on AWS Device Farm_
+
+[![npm](https://img.shields.io/npm/v/@fnzc/appium-aws-device-farm.svg)]
+
+## Installation
+
+```
+npm install --save appium-aws-device-farm
+```
+or
+```
+yarn add appium-aws-device-farm
+```
+
+## Usage
+
+```
+var launchAppiumTestsDeviceFarm = require('appium-aws-device-farm');
+
+launchAppiumTestsDeviceFarm({
+  androidAPKPath: path.normalize('/somePath/someName.apk'),
+  androidDevicePoolARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:devicepool:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  appiumTestFolderPath: path.normalize('/somePath/appium-tests'),
+  appiumTestZipPath: path.normalize('/somePath/AppiumTests.zip'),
+  iOSDevicePoolARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:devicepool:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  iOSIPAPath: path.normalize('/somePath/someName.ipa'),
+  projectARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:project:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  runNameIOS: 'Name Run iOS',
+  runNameAndroid: 'Name Run Android',
+  testSpecAndroidARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:upload:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  testSpecIOSARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:upload:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+})
+```
+
+## Params
 
 | Param | Description | Required | Type |
 |---|---|---|---|
@@ -15,28 +50,16 @@ Node library to schedule Appium test runs on AWS Device Farm
 |**`testSpecAndroidARN`**|ARN of the test spec used for Android tests|`true` if Android selected|`string`|
 |**`testSpecIOSARN`**|ARN of the test spec used for iOS tests|`true` if iOS selected|`string`|
 
-iOSDevicePoolARN = 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/b1d9b656-cc6f-4b71-aa67-f24d912291bc'
-androidDevicePoolARN = 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/230b2130-a477-4776-8aeb-e1ea29fa0fc2'
-iOSIPAPath = path.normalize('../output-ios/JoinDirectBroking.ipa')
-androidAPKPath = path.normalize('../output-android/app-release.apk')
-testSpeciOSARN = 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/65b12a88-8735-4e72-8f2b-e83064322071'
-testSpecAndroidARN = 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/a675ca00-a3b2-4012-9b8b-96a2576b897b'
-projectARN = 'arn:aws:devicefarm:us-west-2:541472778266:project:5c14b96e-4f98-4cce-a335-5971b2ec61db'
+## [Changelog](https://github.com/fnzc/appium-aws-device-farm/blob/master/CHANGELOG.md)
 
-'JoinDirectBroking.ipa'
-'app-release.apk'
-'./AppiumTests.zip'
+## Contributing
 
-main({
-  androidAPKPath: path.normalize('/Users/jfarnaul/Projects/appium-aws-device-farm/app-release.apk'),
-  androidDevicePoolARN: 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/230b2130-a477-4776-8aeb-e1ea29fa0fc2',
-  appiumTestFolderPath: path.normalize('/Users/jfarnaul/Projects/onboarding-app/appium-tests'),
-  appiumTestZipPath: path.normalize('/Users/jfarnaul/Desktop/onb/AppiumTests.zip'),
-  iOSDevicePoolARN: 'arn:aws:devicefarm:us-west-2:541472778266:devicepool:5c14b96e-4f98-4cce-a335-5971b2ec61db/b1d9b656-cc6f-4b71-aa67-f24d912291bc',
-  iOSIPAPath: path.normalize('/Users/jfarnaul/Projects/appium-aws-device-farm/JoinDirectBroking.ipa'),
-  projectARN: 'arn:aws:devicefarm:us-west-2:541472778266:project:5c14b96e-4f98-4cce-a335-5971b2ec61db',
-  runNameIOS: 'Appium Run iOS',
-  runNameAndroid: 'Appium Run Android',
-  testSpecAndroidARN: 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/a675ca00-a3b2-4012-9b8b-96a2576b897b',
-  testSpecIOSARN: 'arn:aws:devicefarm:us-west-2:541472778266:upload:5c14b96e-4f98-4cce-a335-5971b2ec61db/65b12a88-8735-4e72-8f2b-e83064322071'
-})
+Pull requests are welcome.
+
+## [License](https://github.com/fnzc/appium-aws-device-farm/blob/master/LICENSE)
+
+
+
+
+
+
