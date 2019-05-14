@@ -30,7 +30,8 @@ launchAppiumTestsDeviceFarm({
   runNameIOS: 'Name Run iOS',
   runNameAndroid: 'Name Run Android',
   testSpecAndroidARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:upload:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-  testSpecIOSARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:upload:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  testSpecIOSARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:upload:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  verbose: true
 })
 ```
 
@@ -49,6 +50,7 @@ launchAppiumTestsDeviceFarm({
 |**`runNameAndroid`**|Name of the Android test run|`true` if Android selected|`string`|
 |**`testSpecAndroidARN`**|ARN of the test spec used for Android tests|`true` if Android selected|`string`|
 |**`testSpecIOSARN`**|ARN of the test spec used for iOS tests|`true` if iOS selected|`string`|
+|**`verbose`**|Option to add logs during the execution of the script|`false`|`boolean`|
 
 ## [Changelog](https://github.com/fnzc/appium-aws-device-farm/blob/master/CHANGELOG.md)
 

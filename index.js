@@ -17,14 +17,16 @@ const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, 
 
   devicefarm.createUpload(paramsCreateUploadAppium, async (err, data) => {
 
-    if (err) console.log(err, err.stack)
+    if (err) console.log('--- Create upload appium failed --- ', err, err.stack)
     else {
       const uploadAppiumARN = data.upload.arn
       const uploadAppiumURL = data.upload.url
 
-      console.log('--- Appium ARN --- ', uploadAppiumARN, uploadAppiumURL)
-      console.log('--- Spec ARN --- ', testSpecARN)
-      console.log('--- Project ARN --- ', params.projectARN)
+      if (params.verbose) {
+        console.log('--- Appium ARN --- ', uploadAppiumARN, uploadAppiumURL)
+        console.log('--- Spec ARN --- ', testSpecARN)
+        console.log('--- Project ARN --- ', params.projectARN)
+      }
 
       const paramsScheduleRun = {
         projectArn: params.projectARN,
@@ -40,16 +42,16 @@ const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, 
 
       shell.exec(`curl -T ${params.appiumTestZipPath} "${uploadAppiumURL}"`, async (code, stdout, stderr) => {
 
-        console.log('--- curl appium tests --- ', stdout, code)
+        if (params.verbose) console.log('--- curl appium tests --- ', stdout, code)
 
         // Do not remove. Necessary for the files to be fully uploaded
         await delay(10 * 1000)
 
         // Starts the run
         devicefarm.scheduleRun(paramsScheduleRun, (err, data) => {
-          if (err) console.log(err, err.stack)
+          if (err) console.log('--- Schedule run failed --- ', err, err.stack)
           else {
-            console.log('--- Run data --- ' + runName, data)
+            if (params.verbose) console.log('--- Run data --- ' + runName, data)
             resolve(data)
           }
         })
@@ -64,12 +66,12 @@ const runSchedule = (params, tgzPath) => {
     try {
       if (fs.existsSync(tgzPath)) {
 
-        console.log('--- TGZ exists ---')
+        if (params.verbose) console.log('--- TGZ exists ---')
 
         try {
           if (fs.existsSync(params.appiumTestZipPath)) {
 
-            console.log('--- ZIP exists ---')
+            if (params.verbose) console.log('--- ZIP exists ---')
 
             // Upload the IPA and run iOS
             if (params.iOSIPAPath) {
@@ -82,16 +84,18 @@ const runSchedule = (params, tgzPath) => {
 
               devicefarm.createUpload(paramsCreateUploadIPA, (err, data) => {
 
-                if (err) console.log(err, err.stack)
+                if (err) console.log('--- Create upload IPA failed --- ', err, err.stack)
                 else {
                   const uploadIPAARN = data.upload.arn
                   const uploadIPAURL = data.upload.url
 
-                  console.log('--- ipa ARN --- ', uploadIPAARN)
-                  console.log('--- ipa URL --- ', uploadIPAURL)
+                  if (params.verbose) {
+                    console.log('--- ipa ARN --- ', uploadIPAARN)
+                    console.log('--- ipa URL --- ', uploadIPAURL)
+                  }
 
                   shell.exec(`curl -T ${params.iOSIPAPath} "${uploadIPAURL}"`, (code, stdout, stderr) => {
-                    console.log('--- curl iOS ipa --- ', stdout, code)
+                    if (params.verbose) console.log('--- curl iOS ipa --- ', stdout, code)
                     uploadTestScheduleRun(resolve, uploadIPAARN, params.iOSDevicePoolARN, params.testSpecIOSARN,
                       params.runNameIOS, params)
                   })
@@ -110,16 +114,18 @@ const runSchedule = (params, tgzPath) => {
 
               devicefarm.createUpload(paramsCreateUploadAPK, (err, data) => {
 
-                if (err) console.log(err, err.stack)
+                if (err) console.log('--- Create upload APK failed --- ', err, err.stack)
                 else {
                   const uploadAPKARN = data.upload.arn
                   const uploadAPKURL = data.upload.url
 
-                  console.log('--- apk ARN --- ', uploadAPKARN)
-                  console.log('--- apk URL --- ', uploadAPKURL)
+                  if (params.verbose) {
+                    console.log('--- apk ARN --- ', uploadAPKARN)
+                    console.log('--- apk URL --- ', uploadAPKURL)
+                  }
 
                   shell.exec(`curl -T ${params.androidAPKPath} "${uploadAPKURL}"`, (code, stdout, stderr) => {
-                    console.log('--- curl Android apk --- ', stdout, code)
+                    if (params.verbose) console.log('--- curl Android apk --- ', stdout, code)
                     uploadTestScheduleRun(resolve, uploadAPKARN, params.androidDevicePoolARN, params.testSpecAndroidARN,
                       params.runNameAndroid, params)
                   })
@@ -127,17 +133,17 @@ const runSchedule = (params, tgzPath) => {
               })
             }
           } else {
-            console.log('--- ZIP does not exist ---')
+            if (params.verbose) console.log('--- ZIP does not exist ---')
           }
         } catch (err) {
-          console.log('--- ZIP error --- ', err)
+          if (params.verbose) console.log('--- ZIP error --- ', err)
           reject(err)
         }
       } else {
-        console.log('--- TGZ does not exist ---')
+        if (params.verbose) console.log('--- TGZ does not exist ---')
       }
     } catch (err) {
-      console.log('--- TGZ error --- ', err)
+      if (params.verbose) console.log('--- TGZ error --- ', err)
       reject(err)
     }
   }))
@@ -152,10 +158,10 @@ const packageTests = (params, tgzPath) => {
     const tgzPromise = new JSZip.external.Promise((resolve, reject) => {
       fs.readFile(tgzPath, function (err, data) {
         if (err) {
-          console.log('--- Read file err --- ', err)
+          if (params.verbose) console.log('--- Read file err --- ', err)
           reject(err)
         } else {
-          console.log('--- Read file ok --- ', data)
+          if (params.verbose) console.log('--- Read file ok --- ', data)
           resolve(data)
         }
       })
@@ -166,7 +172,7 @@ const packageTests = (params, tgzPath) => {
     zip.generateNodeStream({type: 'nodebuffer', streamFiles: true})
       .pipe(fs.createWriteStream(params.appiumTestZipPath))
       .on('finish', () => {
-        console.log('--- Write zip ok --- ')
+        if (params.verbose) console.log('--- Write zip ok --- ')
         resolve('finish')
       })
   }))
@@ -182,17 +188,17 @@ const createBundle = (params) => {
   shell.exec('npm install', (code, stdout, stderr) => {
     if (stderr) console.log('--- Appium tests npm install failed --- ', stderr)
     else {
-      console.log('--- Appium tests npm install ok --- ', stdout)
+      if (params.verbose) console.log('--- Appium tests npm install ok --- ', stdout)
 
       // Installing npm-bundle and bundling the test folder
       shell.exec('npm install --global npm-bundle', async (code, stdout, stderr) => {
         if (stderr) console.log('--- Install npm-bundle failed --- ', stderr)
         else {
-          console.log('--- Install npm-bundle ok --- ', stdout)
+          if (params.verbose) console.log('--- Install npm-bundle ok --- ', stdout)
           shell.exec('npm-bundle', async (code, stdout, stderr) => {
             if (stderr) console.log('--- npm-bundle failed --- ', stderr)
             else {
-              console.log('--- npm-bundle ok --- ', stdout)
+              if (params.verbose) console.log('--- npm-bundle ok --- ', stdout)
               await packageTests(params, tgzPath)
               runSchedule(params, tgzPath)
             }
@@ -209,7 +215,7 @@ const launchAppiumTestsDeviceFarm = (params) => {
   shell.exec('npm install', (code, stdout, stderr) => {
     if (stderr) console.log('--- appium-aws-device-farm npm install failed --- ', stderr)
     else {
-      console.log('--- appium-aws-device-farm npm install ok --- ', stdout)
+      if (params.verbose) console.log('--- appium-aws-device-farm npm install ok --- ', stdout)
       createBundle(params)
     }
   })
