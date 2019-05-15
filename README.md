@@ -65,6 +65,10 @@ aadf -f someJsonFile.json
 ```
 or
 ```
+aadf -f someJsonFile.json -i "/somePath/someName.apk" -d "someArn"
+```
+or
+```
 aadf
 ```
 

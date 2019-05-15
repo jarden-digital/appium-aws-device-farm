@@ -38,10 +38,10 @@ const params = {
   verbose: program.verbose || null
 }
 
-function clean(obj) {
+function clean (obj) {
   for (const propName in obj) {
     if (obj[propName] === null) {
-      delete obj[propName];
+      delete obj[propName]
     }
   }
   return obj
@@ -53,7 +53,17 @@ if (program.file || lodash.isEmpty(clean(params))) {
   if (!program.file) file = require(`${cwd}/.aadfconfig.json`)
   else file = require(`${cwd}/${program.file}`)
   const endParams = Object.assign({}, file, clean(params))
-  run.launchAppiumTestsDeviceFarm(endParams)
+  console.log('--- PARAMS --- ', endParams)
+  if (!endParams.appiumTestFolderPath || !endParams.appiumTestZipPath || !endParams.projectARN) {
+    console.log('--- Error. Required parameters missing ---')
+  } else {
+    run.launchAppiumTestsDeviceFarm(endParams)
+  }
 } else {
-  run.launchAppiumTestsDeviceFarm(params)
+  console.log('--- PARAMS --- ', params)
+  if (!params.appiumTestFolderPath || !params.appiumTestZipPath || !params.projectARN) {
+    console.log('--- Error. Required parameters missing ---')
+  } else {
+    run.launchAppiumTestsDeviceFarm(params)
+  }
 }
