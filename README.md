@@ -96,20 +96,20 @@ Options:
 
 ## Params
 
-| Param | Description | Required | Type |
-|---|---|---|---|
-|**`androidAPKPath`**|Path to the android APK file|`true` if Android selected|`string`|
-|**`androidDevicePoolARN`**|ARN of the AWS Device Pool used for Android tests|`true` if Android selected|`string`|
-|**`appiumTestFolderPath`**|Path to the appium tests folder|`true`|`string`|
-|**`appiumTestZipPath`**|Path where you wish the zip file to be created|`true`|`string`|
-|**`iOSDevicePoolARN`**|ARN of the device pool used for iOS tests|`true` if iOS selected|`string`|
-|**`iOSIPAPath`**|Path to the iOS IPA file|`true` if iOS selected|`string`|
-|**`projectARN`**|ARN of the AWS Device Farm project|`true`|`string`|
-|**`runNameAndroid`**|Name of the Android test run|`true` if Android selected|`string`|
-|**`runNameIOS`**|Name of the iOS test run|`true` if iOS selected|`string`|
-|**`testSpecAndroidARN`**|ARN of the test spec used for Android tests|`true` if Android selected|`string`|
-|**`testSpecIOSARN`**|ARN of the test spec used for iOS tests|`true` if iOS selected|`string`|
-|**`verbose`**|Option to add more logs during the execution of the script|`false`|`boolean`|
+| Param | CLI | Description | Required | Type |
+|---|---|---|---|---|
+|**`androidAPKPath`**|`-i, --apk_path <path>`|Path to the android APK file|`true` if Android selected|`string`|
+|**`androidDevicePoolARN`**|`-d, --device_pool_android <arn>`|ARN of the AWS Device Pool used for Android tests|`true` if Android selected|`string`|
+|**`appiumTestFolderPath`**|`-a, --appium_path <path>`|Path to the appium tests folder|`true`|`string`|
+|**`appiumTestZipPath`**|`-z, --zip_path <path>`|Path where you wish the zip file to be created|`true`|`string`|
+|**`iOSDevicePoolARN`**|`-D, --device_pool_ios <arn>`|ARN of the device pool used for iOS tests|`true` if iOS selected|`string`|
+|**`iOSIPAPath`**|`-I, --ipa_path <path>`|Path to the iOS IPA file|`true` if iOS selected|`string`|
+|**`projectARN`**|`-p, --project_arn <arn>`|ARN of the AWS Device Farm project|`true`|`string`|
+|**`runNameAndroid`**|`-n, --name_android_run <name>`|Name of the Android test run|`true` if Android selected|`string`|
+|**`runNameIOS`**|`-N, --name_ios_run <name>`|Name of the iOS test run|`true` if iOS selected|`string`|
+|**`testSpecAndroidARN`**|`-s, --spec_android <arn>`|ARN of the test spec used for Android tests|`true` if Android selected|`string`|
+|**`testSpecIOSARN`**|`-S, --spec_ios <arn>`|ARN of the test spec used for iOS tests|`true` if iOS selected|`string`|
+|**`verbose`**|`-v, --verbose`|Option to add more logs during the execution of the script|`false`|`boolean`|
 
 ## [Changelog](https://github.com/fnzc/appium-aws-device-farm/blob/master/CHANGELOG.md)
 
