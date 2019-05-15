@@ -187,25 +187,23 @@ const createBundle = (params) => {
   // Installing the dependencies
   shell.exec('npm install', (code, stdout, stderr) => {
     if (stderr) console.log('--- Appium tests npm install failed --- ', stderr)
-    else {
-      if (params.verbose) console.log('--- Appium tests npm install ok --- ', stdout)
+    if (params.verbose) console.log('--- Appium tests npm install ok --- ', stdout)
 
-      // Installing npm-bundle and bundling the test folder
-      shell.exec('npm install --global npm-bundle', async (code, stdout, stderr) => {
-        if (stderr) console.log('--- Install npm-bundle failed --- ', stderr)
-        else {
-          if (params.verbose) console.log('--- Install npm-bundle ok --- ', stdout)
-          shell.exec('npm-bundle', async (code, stdout, stderr) => {
-            if (stderr) console.log('--- npm-bundle failed --- ', stderr)
-            else {
-              if (params.verbose) console.log('--- npm-bundle ok --- ', stdout)
-              await packageTests(params, tgzPath)
-              runSchedule(params, tgzPath)
-            }
-          })
-        }
-      })
-    }
+    // Installing npm-bundle and bundling the test folder
+    shell.exec('npm install --global npm-bundle', async (code, stdout, stderr) => {
+      if (stderr) console.log('--- Install npm-bundle failed --- ', stderr)
+      else {
+        if (params.verbose) console.log('--- Install npm-bundle ok --- ', stdout)
+        shell.exec('npm-bundle', async (code, stdout, stderr) => {
+          if (stderr) console.log('--- npm-bundle failed --- ', stderr)
+          else {
+            if (params.verbose) console.log('--- npm-bundle ok --- ', stdout)
+            await packageTests(params, tgzPath)
+            runSchedule(params, tgzPath)
+          }
+        })
+      }
+    })
   })
 }
 
@@ -214,10 +212,8 @@ const launchAppiumTestsDeviceFarm = (params) => {
   // Installing dependencies
   shell.exec('npm install', (code, stdout, stderr) => {
     if (stderr) console.log('--- appium-aws-device-farm npm install failed --- ', stderr)
-    else {
-      if (params.verbose) console.log('--- appium-aws-device-farm npm install ok --- ', stdout)
-      createBundle(params)
-    }
+    if (params.verbose) console.log('--- appium-aws-device-farm npm install ok --- ', stdout)
+    createBundle(params)
   })
 }
 
