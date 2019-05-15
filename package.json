@@ -9,9 +9,14 @@
   "readme": "https://github.com/fnzc/appium-aws-device-farm/#readme",
   "author": "Jeremy Farnault <haskkor@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "aadf": "./bin/index.js"
+  },
+  "preferGlobal": true,
   "dependencies": {
     "aws-sdk": "^2.452.0",
     "axios": "^0.18.0",
+    "commander": "^2.20.0",
     "delay": "^4.2.0",
     "fs": "^0.0.1-security",
     "jszip": "^3.2.1",
