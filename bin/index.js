@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander')
+const lodash = require('lodash')
 const pckg = require('./../package.json')
 const run = require('./../scheduleRun')
 
@@ -46,13 +47,13 @@ function clean(obj) {
   return obj
 }
 
-if (program.file) {
+if (program.file || lodash.isEmpty(clean(params))) {
   const cwd = process.cwd()
-  const file = require(`${cwd}/${program.file}`)
+  let file
+  if (!program.file) file = require(`${cwd}/.aadfconfig.json`)
+  else file = require(`${cwd}/${program.file}`)
   const endParams = Object.assign({}, file, clean(params))
   run.launchAppiumTestsDeviceFarm(endParams)
 } else {
   run.launchAppiumTestsDeviceFarm(params)
 }
-
-// default json
