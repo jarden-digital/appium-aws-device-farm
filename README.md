@@ -52,8 +52,9 @@ appiumDeviceFarm.launchAppiumTestsDeviceFarm({
 
 * Use as a CLI interface:
 
-You can use either a JSON file containing all the values or normal CLI options.
-If you provide a JSON file AND some options, the options will replace the values provided by the JSON file.
+**You can use either a JSON file containing all the values or normal CLI options.**
+If you provide a JSON file **AND** some options, the options will replace the values provided by the JSON file.
+You can also call the command with no options and it will try to load the parameters from a `.aadfconfig.json` file.
 
 ```
 aadf -i "/somePath/someName.apk" -d "someArn" -a "../appium-tests" -z "/somePath/someName.zip" -D "somArn" -I "/somePath/someName.ipa" -p "someArn" -n "Some Name" -N "Some Name" -s "someArn" -S "someArn" -v
@@ -61,6 +62,10 @@ aadf -i "/somePath/someName.apk" -d "someArn" -a "../appium-tests" -z "/somePath
 or
 ```
 aadf -f someJsonFile.json
+```
+or
+```
+aadf
 ```
 
 Help page:
