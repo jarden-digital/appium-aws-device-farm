@@ -38,7 +38,7 @@ appiumDeviceFarm.launchAppiumTestsDeviceFarm({
   androidAPKPath: path.normalize('/somePath/someName.apk'),
   androidDevicePoolARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:devicepool:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   appiumTestFolderPath: path.normalize('/somePath/appium-tests'),
-  appiumTestZipPath: path.normalize('/somePath/AppiumTests.zip'),
+  appiumTestZipName: path.normalize('/somePath/AppiumTests.zip'),
   iOSDevicePoolARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:devicepool:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   iOSIPAPath: path.normalize('/somePath/someName.ipa'),
   projectARN: 'arn:aws:devicefarm:us-west-2:xxxxxxxxxxxx:project:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -105,7 +105,7 @@ Options:
 |**`androidAPKPath`**|`-i, --apk_path <path>`|Path to the android APK file|`true` if Android selected|`string`|
 |**`androidDevicePoolARN`**|`-d, --device_pool_android <arn>`|ARN of the AWS Device Pool used for Android tests|`true` if Android selected|`string`|
 |**`appiumTestFolderPath`**|`-a, --appium_path <path>`|Path to the appium tests folder|`true`|`string`|
-|**`appiumTestZipPath`**|`-z, --zip_path <path>`|Path where you wish the zip file to be created|`true`|`string`|
+|**`appiumTestZipName`**|`-z, --zip_path <path>`|Appium tests zip file name|`true`|`string`|
 |**`iOSDevicePoolARN`**|`-D, --device_pool_ios <arn>`|ARN of the device pool used for iOS tests|`true` if iOS selected|`string`|
 |**`iOSIPAPath`**|`-I, --ipa_path <path>`|Path to the iOS IPA file|`true` if iOS selected|`string`|
 |**`projectARN`**|`-p, --project_arn <arn>`|ARN of the AWS Device Farm project|`true`|`string`|

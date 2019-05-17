@@ -27,7 +27,7 @@ const params = {
   androidAPKPath: program.apk_path || null,
   androidDevicePoolARN: program.device_pool_android || null,
   appiumTestFolderPath: program.appium_path || null,
-  appiumTestZipPath: program.zip_path || null,
+  appiumTestZipName: program.zip_path || null,
   iOSDevicePoolARN: program.device_pool_ios || null,
   iOSIPAPath: program.ipa_path || null,
   projectARN: program.project_arn || null,
@@ -54,14 +54,14 @@ if (program.file || lodash.isEmpty(clean(params))) {
   else file = require(`${cwd}/${program.file}`)
   const endParams = Object.assign({}, file, clean(params))
   console.log('--- PARAMS --- ', endParams)
-  if (!endParams.appiumTestFolderPath || !endParams.appiumTestZipPath || !endParams.projectARN) {
+  if (!endParams.appiumTestFolderPath || !endParams.appiumTestZipName || !endParams.projectARN) {
     console.log('--- Error. Required parameters missing ---')
   } else {
     run.launchAppiumTestsDeviceFarm(endParams)
   }
 } else {
   console.log('--- PARAMS --- ', params)
-  if (!params.appiumTestFolderPath || !params.appiumTestZipPath || !params.projectARN) {
+  if (!params.appiumTestFolderPath || !params.appiumTestZipName || !params.projectARN) {
     console.log('--- Error. Required parameters missing ---')
   } else {
     run.launchAppiumTestsDeviceFarm(params)

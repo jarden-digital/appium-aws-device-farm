@@ -10,7 +10,7 @@ const devicefarm = new AWS.DeviceFarm({region: 'us-west-2'})
 const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, runName, params) => {
 
   const paramsCreateUploadAppium = {
-    name: path.basename(params.appiumTestZipPath),
+    name: path.basename(params.appiumTestZipName),
     type: 'APPIUM_NODE_TEST_PACKAGE',
     projectArn: params.projectARN
   }
@@ -40,7 +40,7 @@ const uploadTestScheduleRun = (resolve, packageArn, devicePoolARN, testSpecARN, 
         }
       }
 
-      shell.exec(`curl -T ${params.appiumTestZipPath} "${uploadAppiumURL}"`, async (code, stdout, stderr) => {
+      shell.exec(`curl -T ${params.appiumTestZipName} "${uploadAppiumURL}"`, async (code, stdout, stderr) => {
 
         if (params.verbose) console.log('--- curl appium tests --- ', stdout, code)
 
@@ -69,7 +69,7 @@ const runSchedule = (params, tgzPath) => {
         if (params.verbose) console.log('--- TGZ exists ---')
 
         try {
-          if (fs.existsSync(params.appiumTestZipPath)) {
+          if (fs.existsSync(params.appiumTestZipName)) {
 
             if (params.verbose) console.log('--- ZIP exists ---')
 
@@ -170,7 +170,7 @@ const packageTests = (params, tgzPath) => {
 
     // Write the zip
     zip.generateNodeStream({type: 'nodebuffer', streamFiles: true})
-      .pipe(fs.createWriteStream(params.appiumTestZipPath))
+      .pipe(fs.createWriteStream(params.appiumTestZipName))
       .on('finish', () => {
         if (params.verbose) console.log('--- Write zip ok --- ')
         resolve('finish')

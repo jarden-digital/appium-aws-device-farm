@@ -2,7 +2,7 @@ interface ParamsType {
   androidAPKPath?: string
   androidDevicePoolARN?: string
   appiumTestFolderPath: string
-  appiumTestZipPath: string
+  appiumTestZipName: string
   iOSDevicePoolARN?: string
   iOSIPAPath?: string
   projectARN: string
