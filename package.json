@@ -15,7 +15,7 @@
   "preferGlobal": true,
   "dependencies": {
     "aws-sdk": "^2.452.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "commander": "^2.20.0",
     "delay": "^4.2.0",
     "fs": "^0.0.1-security",
